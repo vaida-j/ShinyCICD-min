@@ -16,7 +16,8 @@ app_ui <- function(request) {
 
       # Sidebar with a slider input for number of bins
       mainPanel(
-        mod_faithful_histogram_ui("hist-waiting")
+        mod_faithful_histogram_ui("hist-waiting"),
+        mod_faithful_histogram_ui("hist-eruptions")
       )
     )
   )
