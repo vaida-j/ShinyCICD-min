@@ -9,7 +9,8 @@ LazyData: true
 Imports: 
     config,
     golem,
-    shiny
+    shiny,
+    pkgload
 Suggests:
     testthat
 RoxygenNote: 7.1.0
