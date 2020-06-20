@@ -38,19 +38,22 @@ mod_faithful_histogram_ui <- function(id) {
 
 #' @rdname mod_faithful_histogram
 #'
+#' @param variable Reactive expression yielding the variable to plot the histogram
+#'
 #' @importFrom graphics hist
-mod_faithful_histogram_server <- function(input, output, session) {
+mod_faithful_histogram_server <- function(input, output, session,
+                                          variable=reactive(NULL)) {
   ns <- session$ns
 
   # generate bins based on input$bins from ui.R
-  x    <- datasets::faithful[, "waiting"]
-  bins <- reactive(seq(min(x), max(x), length.out = input$bins + 1))
+  x    <- reactive(datasets::faithful[, variable()])
+  bins <- reactive(seq(min(x()), max(x()), length.out = input$bins + 1))
 
   output$distPlot <- renderPlot({
     # draw the histogram with the specified number of bins
     hist(
-      x, breaks = bins(), freq = !input$density,
-      main = "Histogram of waiting",
+      x(), breaks = bins(), freq = !input$density,
+      main = paste("Histogram of", variable()),
       col = "darkgray", border = "white"
     )
   })
